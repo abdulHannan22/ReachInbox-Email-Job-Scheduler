@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  EmailJobs EmailJob[]
+  Senders   SenderConfig[]
+}
+
+model SenderConfig {
+  id          String   @id @default(uuid())
+  userId      String
+  email       String
+  hourlyLimit Int      @default(200)
+  delayMs     Int      @default(2000)
+  createdAt   DateTime @default(now())
+  
+  User        User     @relation(fields: [userId], references: [id])
+  EmailJobs   EmailJob[]
+}
+
+model EmailJob {
+  id             String    @id @default(uuid())
+  userId         String
+  senderId       String
+  toEmail        String
+  subject        String
+  body           String
+  scheduledFor   DateTime
+  status         String    @default("scheduled") // scheduled, queued, delayed, sent, failed
+  error          String?
+  bullJobId      String?   @unique
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  User           User         @relation(fields: [userId], references: [id])
+  Sender         SenderConfig @relation(fields: [senderId], references: [id])
+}
+
+model TenantSetting {
+  id                 String   @id @default(uuid())
+  userId             String   @unique
+  slackToken         String?
+  slackWebhookUrl    String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
