@@ -1,0 +1,30 @@
+
+> frontend@0.1.0 build
+> next build
+
+▲ Next.js 16.3.4 (Turbopack)
+- Environments: .env
+✓ Running next.config.ts took 148ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 19.3s
+  Running TypeScript ...
+  Finished TypeScript in 13.4s ...
+  Collecting page data using 6 workers ...
+  Generating static pages using 6 workers (0/4) ...
+  Generating static pages using 6 workers (1/4) 
+  Generating static pages using 6 workers (2/4) 
+  Generating static pages using 6 workers (3/4) 
+✓ Generating static pages using 6 workers (4/4) in 3.6s
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/auth/[...nextauth]
+└ ○ /dashboard
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
